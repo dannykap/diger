@@ -32,14 +32,15 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
     - `-s <stack-name>`     &ensp;name of the stack that containing lambdas to debug
     - `-t <template-path>`  &ensp;path to the repo's template. Default: ./template.yml
     - `-u <code-uri>`       &ensp;to enforce a different base path to all lambda handlers. 
-                                <br>&ensp;&ensp;Default: CodeUri defined in template.yml &ensp;*example: '-u ./build/'.*
+                                <br>&ensp;&ensp;Default: CodeUri defined in template.yml
+                                  <br>&ensp;&ensp; example: '-u ./build/'.
     - `-m <manual-mapping>` &ensp;override the template's mapping relative path to a file manually mapping lambdas to their local handlers. 
                                 <br>&ensp;&ensp;Example: examples/mapping.js`, null)
     - `-v `                 &ensp;enable verbose logging to print runtime execution and events IO
     - `-u <code-uri>`       &ensp;override all handlers base path (lambda CodeUri)
     - `-v <verbose>`        &ensp;print execution logs
     - `-c <clean-logs>`     &ensp;erase previously stored queued trigger events before starting a new debug session
-    - `-f <config-file>`    &ensp;path to an NLD config file storing the overrides and manual lambda mapping. Run 'NLD generate-config-file to generate an example file
+    - `-f <config-file>`    &ensp;path to an NLD config file storing the overrides and manual lambda mapping. <br>Run 'nld generate-config-file to generate an example file
     - `-n <NLD-stack-Name>` &ensp;override the default name for the NLD resources stack. Default: NLD
 ## HOW TO REMOVE
 * If you wish to update the lambdas or when debugging is no longer needed, execute `nld detach` for that specific stack/lambda
