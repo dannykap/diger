@@ -4,13 +4,13 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 
 ## HOW DOES IT WORK 
 * __Deployment phase__
-    executing the 'deploy' command once per account+region to:
-        - allocate a dynamoDB table used for caching and act as an event ledger
-        - lambda layer that, once triggered, mirrors the triggered lambda event to the local machine
+    <br>executing the 'deploy' command once per account+region to:
+    - allocate a dynamoDB table used for caching and act as an event ledger
+    - lambda layer that, once triggered, mirrors the triggered lambda event to the local machine
 * __Connection phase__
-    executing the 'connect' CLI command in any IDE debugger will:
-        - Map the relevant lambdas (auto-discovered from a given cloudformation template or manually provided)
-        - Update the remote lambdas to mirror the trigger event when the local machine is in active debugging
+    <br>executing the 'connect' CLI command in any IDE debugger will:
+    - Map the relevant lambdas (auto-discovered from a given cloudformation template or manually provided)
+    - Update the remote lambdas to mirror the trigger event when the local machine is in active debugging
 
 ## PREREQUISITES 
 * A deployed AWS Lambda containing code that can be executed on a local machine.
