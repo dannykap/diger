@@ -18,7 +18,7 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 ## HOW TO INSTALL 
 * Install : `npm i -g nld ts-node typescript`
 * Deploy : `nld deploy` (once per account+region. use '-h' to override default params)
-    &nbsp;*example: `nld deploy -p dev-account -r eu-central-1`*
+    <br>&nbsp;*example: `nld deploy -p dev-account -r eu-central-1`*
 
 ## HOW TO USE 
 * From the project's root path execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
@@ -32,9 +32,9 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
     - `-s <stack-name>`     &nbsp;name of the stack that contains lambdas to debug
     - `-t <template-path>`  &nbsp;path to the repo's template. Default: ./template.yml
     - `-u <code-uri>`       &nbsp;to enforce a different base path to all lambda handlers. 
-                                &nbsp;&nbsp;Example: './build/'. Default: CodeUri defined in template.yml
+                                <br>&nbsp;&nbsp;Example: './build/'. Default: CodeUri defined in template.yml
     - `-m <manual-mapping>` &nbsp;override the template's mapping relative path to a file manually mapping lambdas to their local handlers. 
-                                &nbsp;&nbsp;Example: examples/mapping.js`, null)
+                                <br>&nbsp;&nbsp;Example: examples/mapping.js`, null)
     - `-v `                 &nbsp;enable verbose logging to print runtime execution and events IO
     - `-u <code-uri>`       &nbsp;override all handlers base path (lambda CodeUri)
     - `-v <verbose>`        &nbsp;print execution logs
