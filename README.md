@@ -22,12 +22,10 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 
 ## HOW TO USE 
 * From a project's root path, execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
-<br>
 * `nld connect` defaults:
     - use the local machine's default AWS profile+region
     - Auto-discover and map the lambdas in a Cloudformation template located at the the project's root at template.yml
     - Bind to handler files located at the paths described in the template.yml
-<br>
 * `nld connect` overrides:
     - `-p <aws-profile>`    &ensp;override the default profile aws uses
     - `-r <aws-region>`     &ensp;override the default region aws uses
