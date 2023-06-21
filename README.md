@@ -67,6 +67,6 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 * Stack debugging with local handler path prefix override:
     <br>&ensp;`nld connect -p dev-account -r eu-central-1 -s my-test-stack -u ./build`
 * Using a project config file:
-    <br>&ensp;create:  `nld generate-config-file -p nld.js`
-    <br>&ensp;connect: `nld deploy -f nld.js`
+    <br>&ensp;create:  `nld generate-config-file -p nld.config.js`
+    <br>&ensp;connect: `nld deploy -f nld.config.js`
 
