@@ -1,6 +1,6 @@
 # NodeJS Lambda Debugger
 ## WHAT IS IT 
-A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegating their execution to a local machine. 
+A JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegating their execution to a local machine. 
 
 ## HOW DOES IT WORK 
 * __Deployment phase__
@@ -21,11 +21,13 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
     <br>&ensp;*example: `nld deploy -p dev-account -r eu-central-1`*
 
 ## HOW TO USE 
-* From the project's root path execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
+* From a project's root path execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
+<br>
 * `nld connect` defaults:
     - use the local machine's default AWS profile+region
     - Auto-discover and map the lambdas in a Cloudformation template located at the the project's root at template.yml
     - Bind to handler files located at the paths described in the template.yml
+<br>
 * `nld connect` overrides:
     - `-p <aws-profile>`    &ensp;override the default profile aws uses
     - `-r <aws-region>`     &ensp;override the default region aws uses
