@@ -1,48 +1,46 @@
-# Node-LaD 
+# NodeJS Lambda Debugger
 ## WHAT IS IT 
 A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegating their execution to a local machine. 
 
 ## HOW DOES IT WORK 
 * __Deployment phase__
-    <br>executing the 'deploy' command once per account+region to:
-    - allocate a dynamoDB table used for caching and act as an event ledger
-    - lambda layer that, once triggered, mirrors the triggered lambda event to the local machine
+    <br>Should be done once per account+region to:
+    - allocate a dynamoDB table used for caching and act as a trigger event ledger
+    - Create a lambda layer that, once applied to a lambda during a debugging session, mirrors the trigger event to the local machine
 * __Connection phase__
-    <br>executing the 'connect' CLI command in any IDE debugger will:
-    - Map the relevant lambdas (auto-discovered from a given cloudformation template or manually provided)
+    <br>Executing the 'connect' CLI command in any IDE debugger will:
+    - Map the relevant lambdas (either manually provided or auto-discovered from a given cloudformation template)
     - Update the remote lambdas to mirror the trigger event when the local machine is in active debugging
 
 ## PREREQUISITES 
-* A deployed AWS Lambda containing code that can be executed on a local machine.
+* Programmatic access to an AWS account containing a Lambda whose code that can be executed on a local machine.
 
 ## HOW TO INSTALL 
-* Install : `npm i -g @melio/gofer ts-node typescript`
+* Install : `npm i -g nld ts-node typescript`
 * Deploy : `nld deploy` (once per account+region. use '-h' to override default params)
+    &nbsp;*example: `nld deploy -p dev-account -r eu-central-1`*
 
 ## HOW TO USE 
 * From the project's root path execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
-* NLD Connect defaults:
+* `nld connect` defaults:
     - use the local machine's default AWS profile+region
-    - Auto-discover and map the lambdas in a Cloudformation template.yml located at the root of the project
+    - Auto-discover and map the lambdas in a Cloudformation template located at the the project's root at template.yml
     - Bind to handler files located at the paths described in the template.yml
-* Connect optional overrides:
-    - `-s <stack-name>`   to provide the service name. Default: name param form ./package.json
-    - `-t <template-path>`  to provide the service's template path. Default: ./template.yml
-    - `-u <code-uri>`       to enforce a different base path to all lambda handlers. 
-                                Example: './build/'. Default: CodeUri defined in template.yml
-    - `-m <manual-mapping>` override the template's mapping relative path to a file manually mapping lambdas to their local handlers. 
-                                Example: examples/mapping.js`, null)
-    - `-v `                 enable verbose logging to print runtime execution and events IO
-
-    - `-p <aws-profile>`    override the default profile aws uses
-    - `-r <aws-region>`     override the default region aws uses
-    - `-s <stack-name>`     name of the stack that contains lambdas to debug
-    - `-t <template-path>`  path to the repo's template. Default: ./template.yml
-    - `-u <code-uri>`       override all handlers base path (lambda CodeUri)
-    - `-v <verbose>`        print execution logs
-    - `-c <clean-logs>`     erase previously stored queued trigger events before starting a new debug session
-    - `-f <config-file>`    path to an NLD config file storing the overrides and manual lambda mapping. Run 'NLD generate-config-file to generate an example file
-    - `-n <NLD-stack-Name>` override the default name for the NLD resources stack. Default: NLD
+* `nld connect` overrides:
+    - `-p <aws-profile>`    &nbsp;override the default profile aws uses
+    - `-r <aws-region>`     &nbsp;override the default region aws uses
+    - `-s <stack-name>`     &nbsp;name of the stack that contains lambdas to debug
+    - `-t <template-path>`  &nbsp;path to the repo's template. Default: ./template.yml
+    - `-u <code-uri>`       &nbsp;to enforce a different base path to all lambda handlers. 
+                                &nbsp;&nbsp;Example: './build/'. Default: CodeUri defined in template.yml
+    - `-m <manual-mapping>` &nbsp;override the template's mapping relative path to a file manually mapping lambdas to their local handlers. 
+                                &nbsp;&nbsp;Example: examples/mapping.js`, null)
+    - `-v `                 &nbsp;enable verbose logging to print runtime execution and events IO
+    - `-u <code-uri>`       &nbsp;override all handlers base path (lambda CodeUri)
+    - `-v <verbose>`        &nbsp;print execution logs
+    - `-c <clean-logs>`     &nbsp;erase previously stored queued trigger events before starting a new debug session
+    - `-f <config-file>`    &nbsp;path to an NLD config file storing the overrides and manual lambda mapping. Run 'NLD generate-config-file to generate an example file
+    - `-n <NLD-stack-Name>` &nbsp;override the default name for the NLD resources stack. Default: NLD
 ## HOW TO REMOVE
 * If you wish to update the lambdas or when debugging is no longer needed, execute `nld detach` for that specific stack/lambda
 
