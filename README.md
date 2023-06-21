@@ -8,7 +8,7 @@ A JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegati
     - allocate a dynamoDB table used for caching and act as a trigger event ledger
     - Create a lambda layer that, once applied to a lambda during a debugging session, mirrors the trigger event to the local machine
 * __Connection phase__
-    <br>Executing the 'connect' CLI command in any IDE debugger will:
+    <br>Executing in any IDE debugger terminal the `nld connect` CLI command will:
     - Map the relevant lambdas (either manually provided or auto-discovered from a given cloudformation template)
     - Update the remote lambdas to mirror the trigger event when the local machine is in active debugging
 
