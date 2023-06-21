@@ -1,6 +1,6 @@
 # NodeJS Lambda Debugger
 ## WHAT IS IT 
-A JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegating their execution to a local machine. 
+A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegating their execution to a local machine. 
 
 ## HOW DOES IT WORK 
 * __Deployment phase__
@@ -8,12 +8,12 @@ A JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegati
     - allocate a dynamoDB table used for caching and act as a trigger event ledger
     - Create a lambda layer that, once applied to a lambda during a debugging session, mirrors the trigger event to the local machine
 * __Connection phase__
-    <br>Executing in any IDE debugger terminal the `nld connect` CLI command will:
+    <br>Executing in any IDE debugger terminal the 'connect' CLI command  will:
     - Map the relevant lambdas (either manually provided or auto-discovered from a given cloudformation template)
     - Update the remote lambdas to mirror the trigger event when the local machine is in active debugging
 
 ## PREREQUISITES 
-* Programmatic access to an AWS account containing a Lambda whose code that can be executed on a local machine.
+* Programmatic access to an AWS account containing a Lambda with code that can be executed on a local machine.
 
 ## HOW TO INSTALL 
 * Install : `npm i -g nld ts-node typescript`
@@ -21,7 +21,7 @@ A JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegati
     <br>&ensp;*example: `nld deploy -p dev-account -r eu-central-1`*
 
 ## HOW TO USE 
-* From a project's root path execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
+* From a project's root path, execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
 <br>
 * `nld connect` defaults:
     - use the local machine's default AWS profile+region
