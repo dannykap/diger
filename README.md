@@ -60,7 +60,7 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 ## CLI EXAMPLES
 * Initial deployment: 
     <br>&ensp;`nld deploy  -p dev-account -r eu-central-1`
-* Stack debugging:    
+* Stack debugging:
     <br>&ensp;`nld connect -p dev-account -r eu-central-1 -s my-test-stack`
 * Detach NLD from the stack:
     <br>&ensp;`nld detach  -p dev-account -r eu-central-1`
