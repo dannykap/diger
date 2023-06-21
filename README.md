@@ -30,8 +30,8 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
     - `-p <aws-profile>`    &ensp;override the default profile aws uses
     - `-r <aws-region>`     &ensp;override the default region aws uses
     - `-s <stack-name>`     &ensp;name of the stack that containing lambdas to debug
-    - `-t <template-path>`  &ensp;path to the repo's template. Default: ./template.yml
-    - `-u <code-uri>`       &ensp;to enforce a different base path to all lambda handlers. 
+    - `-t <template-path>`  &ensp;path to the local Cloudformation template. Default: ./template.yml
+    - `-u <code-uri>`       &ensp;enforce a different base path to all lambda handlers. 
                                 <br>&ensp;&ensp;Default: CodeUri defined in template.yml
                                   <br>&ensp;&ensp; example: '-u ./build/'.
     - `-m <manual-mapping>` &ensp;override the template's mapping relative path to a file manually mapping lambdas to their local handlers. 
