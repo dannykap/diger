@@ -1,0 +1,38 @@
+{
+  "name": "nld",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "AWS_EMF_ENVIRONMENT=Local ALLOW_CONFIG_MUTATIONS=true NODE_ENV=test jest",
+    "release:publish": "npm publish",
+    "prettier:wrtie": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dannykap/nld.git"
+  },
+  "bin": {
+    "nld": "./bin/nld.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1304.0",
+    "commander": "^10.0.0",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.1.0",
+    "jest": "^29.4.1",
+    "js-yaml": "^4.1.0",
+    "path": "^0.12.7",
+    "release-it": "^15.6.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  },
+  "release-it": {
+    "npm": {
+      "publish": false
+    }
+  }
+}

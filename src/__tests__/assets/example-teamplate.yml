@@ -1,0 +1,61 @@
+Resources:
+  TestApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      Domain:
+        DomainName: test-api.{{early-resolve:ssm:/${Environment}/infra/master-domain}}
+        CertificateArn: '{{early-resolve:ssm:/${Environment}/infra/master-domain-certificate}}'
+        EndpointConfiguration: REGIONAL
+        Route53:
+          HostedZoneId: '{{early-resolve:ssm:/${Environment}/infra/master-domain-zone}}'
+      Name: !Sub ${Environment}-test-api
+      StageName: !Ref Environment
+      EndpointConfiguration: REGIONAL
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: open-api.yml
+      Auth:
+        ResourcePolicy:
+          CustomStatements:
+            - Effect: Allow
+              Principal:
+                AWS: !Ref AWS::AccountId
+              Action: execute-api:Invoke
+              Resource: execute-api:/*
+  EventBridgeToSnsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 180
+  GetTestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/__tests__/assets/get-test-handler.handler
+      Description: HTTP get method to get test by id
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            RestApiId: !Ref TestApiGateway
+            Path: /test/{id}
+            Method: GET
+      Environment:
+        Variables:
+          TEST_VAR: "some value"
+      CodeUri: ./
+  QueueTriggeredTestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/__tests__/assets/queue-handler.handler
+      Description: HTTP get method to get test by id
+      Events:
+        QueueTrigger:
+          Type: SQS
+          Properties:
+            BatchSize: 1
+            Queue: !GetAtt EventBridgeToSnsQueue.Arn
+      Environment:
+        Variables:
+          QUEUE_ENV_VALUE: "some value"
+      CodeUri: ./

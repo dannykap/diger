@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Node Lambda Debugger resources"
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Resources:
+  LambdaDynamoPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:GetItem
+              - dynamodb:Query
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:Scan
+              - dynamodb:DeleteItem
+            Resource: !GetAtt MirrorCachingTable.Arn
+
+  MirrorCachingTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: lambdaName
+          AttributeType: S
+        - AttributeName: invokeId
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: lambdaName
+          KeyType: HASH
+        - AttributeName: invokeId
+          KeyType: RANGE
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: 'true'
+
+  NLDLayer:
+    Type: AWS::Serverless::LayerVersion
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      ContentUri: payload
+      CompatibleRuntimes:
+        - nodejs14.x
+      RetentionPolicy: Retain
