@@ -18,7 +18,7 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 ## HOW TO INSTALL 
 * Install : `npm i -g nld ts-node typescript`
 * Deploy : `nld deploy` (once per account+region. use '-h' to override default params)
-    <br><br>&ensp;*example: `nld deploy -p dev-account -r eu-central-1`*
+    <br>&ensp;*example: `nld deploy -p dev-account -r eu-central-1`*
 
 ## HOW TO USE 
 * From the project's root path execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
@@ -31,8 +31,8 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
     - `-r <aws-region>`     &ensp;override the default region aws uses
     - `-s <stack-name>`     &ensp;name of the stack that containing lambdas to debug
     - `-t <template-path>`  &ensp;path to the repo's template. Default: ./template.yml
-    - `-u <code-uri>`       &ensp;to enforce a different base path to all lambda handlers. Default: CodeUri defined in template.yml
-                                <br><br>&ensp;&ensp;example: '-u ./build/'. 
+    - `-u <code-uri>`       &ensp;to enforce a different base path to all lambda handlers. 
+                                <br>&ensp;&ensp;Default: CodeUri defined in template.yml &ensp;*example: '-u ./build/'.*
     - `-m <manual-mapping>` &ensp;override the template's mapping relative path to a file manually mapping lambdas to their local handlers. 
                                 <br>&ensp;&ensp;Example: examples/mapping.js`, null)
     - `-v `                 &ensp;enable verbose logging to print runtime execution and events IO
