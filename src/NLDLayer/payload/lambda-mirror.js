@@ -58,7 +58,7 @@ exports.handler = async function (event, context, callback) {
 
   // write incoming event to queue
   console.log(
-    `Gofer incoming event
+    `NLD incoming event
     \n${process.env.LAMBDA_MIRROR_NAME}
     \n${process.env.DYNAMO_MIRROR_TABLE_REF}
     \n${event?.Records?.[0]?.eventSource || null }`

@@ -162,11 +162,11 @@ const saveNLDResourcesRefs = async (NLDResources) => {
  * @returns {GoferLayerCheckResult} `{ goferLayerExists, latestGoferLayerExists }` - An object containing the results of the Gofer layer existence check.
  */
 const checkGoferExists = (lambdaResource) => {
-  const [goferLayerExists, latestGoferLayerExists] = ['GoferLayer', process.env.NLD_LAYER_REF].map((layerName) =>
+  const [goferLayerExists, latestGoferLayerExists] = ['NLDLayer', process.env.NLD_LAYER_REF].map((layerName) =>
     lambdaResource.config?.Layers?.some((layer) => layer.Arn.includes(layerName))
   );
-  logger.debug(`${lambdaResource.name} - gofer layer exists: ${Boolean(goferLayerExists)}`);
-  logger.debug(`${lambdaResource.name} - latest version of gofer layer exists: ${Boolean(latestGoferLayerExists)}`);
+  logger.debug(`${lambdaResource.name} - NLD layer exists: ${Boolean(goferLayerExists)}`);
+  logger.debug(`${lambdaResource.name} - latest version of NLD layer exists: ${Boolean(latestGoferLayerExists)}`);
   return { goferLayerExists, latestGoferLayerExists };
 };
 
@@ -438,10 +438,10 @@ const detachFromLambdas = async (stackName, manualMapping) => {
 
     try {
       await iam.detachRolePolicy(params).promise();
-      logger.info(`removed Gofer from ${lambdaResource.name}`);
+      logger.info(`removed NLD from ${lambdaResource.name}`);
     } catch (error) {
       if (error.code.includes('NoSuchEntity')) {
-        logger.info(`removed Gofer from ${lambdaResource.name}`);
+        logger.info(`removed NLD from ${lambdaResource.name}`);
       } else {
         logger.error(`failed to update role ${roleName} of ${lambdaResource.name}`);
       }

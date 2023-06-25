@@ -12,7 +12,9 @@
     "url": "git+ssh://git@github.com/dannykap/nld.git"
   },
   "bin": {
-    "nld": "./bin/nld.sh"
+    "nld": "./bin/nld.sh",
+    "nld-js": "./bin/nld-js.js",
+    "nld-ts": "./bin/nld-ts.js"    
   },
   "author": "",
   "license": "ISC",

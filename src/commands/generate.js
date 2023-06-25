@@ -10,7 +10,7 @@ const generate = async (flags) => {
     logger.info(`CREATED NLD CONFIG FILE at  ${flags.path}`);
   } catch (error) {
     logger.error(
-      `failed copying ${packageDir}/shared to ${packageDir}/goferLayer/payload/shared with error: \n${error}`
+      `failed copying ${packageDir}/shared to ${flags.path} with error: \n${error}`
     );
   }
 

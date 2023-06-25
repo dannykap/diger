@@ -1,7 +1,7 @@
 FILE=./tsconfig.json
 
 if [ -f "$FILE" ]; then
-  $(dirname "$0")/nld-ts.js "$@"
+  $(dirname "$0")/nld-ts  "$@"
 else
-  $(dirname "$0")/nld-js.js "$@"
+  $(dirname "$0")/nld-js "$@"
 fi

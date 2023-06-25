@@ -11,18 +11,18 @@ process.env.AWS_PROFILE = 'melio-personal';
 program
   .version(version)
   .name(name)
-  .description('replace aws lambdas with mirror lambda that will run the request locall');
+  .description('A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegating their execution to a local machine');
 
 program.command('deploy')
 .description(`create NLD stack resources`)
-.option('--NLD-stack-Name <name>', `override the default name for the NLD stack. Default: NLD`, 'NLD')
+.option('-n --NLD-stack-Name <name>', `override the default name for the NLD stack. Default: NLD`, 'NLD')
 .option('-p --aws-profile <name>', `override the default profile aws uses`, null) 
 .option('-r --aws-region <name>', `override the default region aws uses`, null) 
 .action(deploy);
 
 program
   .command('connect')
-  .description('Connect to a remote server')
+  .description('Connect NLD to deployed lambdas')
   .option('-p --aws-profile <name>', `override the default profile aws uses`, null) 
   .option('-r --aws-region <name>', `override the default region aws uses`, null) 
   .option(`-s --stack-name <name>`, `name of the stack that contains lambdas to debug`, null)

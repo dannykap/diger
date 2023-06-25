@@ -33,6 +33,10 @@ const loadConfigParams = (configFile = null, flags) => {
     Object.keys(configFile).forEach((key) => configFile[key] = (configFile[key] === '' ? null : configFile[key])
     );
   }
+  if (!configFile?.lambdaMapping &&  !flags.stackName && !configFile?.stackName){ 
+    logger.error(`missing stack name or lambda mapping! EXITING\n`);
+    throw Error;
+  };  
   process.env.CODE_URI = configFile?.codeUri || flags.codeUri;
   process.env.AWS_REGION = configFile?.region || flags.awsRegion || process.env.AWS_REGION;
   process.env.STACK_NAME  = ( configFile?.stackName || flags.stackName ) || Object.keys(configFile.lambdaMapping)[0];
