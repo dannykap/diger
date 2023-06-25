@@ -5,7 +5,7 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 ## HOW DOES IT WORK 
 * __Deployment phase__
     <br>Should be done once per account+region to:
-    - allocate a dynamoDB table used for caching and act as a trigger event ledger
+    - allocate a dynamoDB table used for caching and act as an event ledger
     - Create a lambda layer that, once applied to a lambda during a debugging session, mirrors the trigger event to the local machine
 * __Connection phase__
     <br>Executing the 'connect' CLI command in any IDE debugger will:
@@ -18,16 +18,16 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 ## HOW TO INSTALL 
 * Install : `npm i -g nld ts-node typescript`
 * Deploy : `nld deploy` (once per account+region. use '-h' to override default params)
-    <br>&ensp;*example: `nld deploy -p dev-account -r eu-central-1`*
+    <br>&ensp;*example: `nld deploy -p aws-dev-account -r eu-central-1`*
 
 ## HOW TO USE 
 * From a project's root path, execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
-<br>
+
 * `nld connect` defaults:
     - use the local machine's default AWS profile+region
     - Auto-discover and map the lambdas in a Cloudformation template located at the the project's root at template.yml
     - Bind to handler files located at the paths described in the template.yml
-<br>
+
 * `nld connect` overrides:
     - `-p <aws-profile>`    &ensp;override the default profile aws uses
     - `-r <aws-region>`     &ensp;override the default region aws uses
@@ -61,13 +61,13 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 
 ## CLI EXAMPLES
 * Initial deployment: 
-    `nld deploy  -p dev-account -r eu-central-1`
+    `nld deploy  -p aws-dev-account -r eu-central-1`
 * Stack debugging:    
-    `nld connect -p dev-account -r eu-central-1 -s my-test-stack`
+    `nld connect -p aws-dev-account -r eu-central-1 -s my-test-stack`
 * Detach NLD from the stack:
-    `nld detach  -p dev-account -r eu-central-1`
+    `nld detach  -p aws-dev-account -r eu-central-1`
 * Stack debugging with local handler path prefix override:
-    `nld connect -p dev-account -r eu-central-1 -s my-test-stack -u ./build`
+    `nld connect -p aws-dev-account -r eu-central-1 -s my-test-stack -u ./build`
 * Using a project config file:
     create:  `nld generate-config-file -p nld.js`
     connect: `nld deploy -f nld.js`
