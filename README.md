@@ -8,7 +8,7 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
     - allocate a dynamoDB table used for caching and act as an event ledger
     - Create a lambda layer that, once applied to a lambda during a debugging session, mirrors the trigger event to the local machine
 * __Connection phase__
-    <br>Executing the 'connect' CLI command in any IDE debugger will:
+    <br>Executing in any IDE debugger terminal the 'connect' CLI command  will:
     - Map the relevant lambdas (either manually provided or auto-discovered from a given cloudformation template)
     - Update the remote lambdas to mirror the trigger event when the local machine is in active debugging
 
@@ -22,7 +22,6 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 
 ## HOW TO USE 
 * From a project's root path, execute in your IDE's debug terminal: `nld connect` (use '-h' for override options)
-
 * `nld connect` defaults:
     - use the local machine's default AWS profile+region
     - Auto-discover and map the lambdas in a Cloudformation template located at the the project's root at template.yml
@@ -32,8 +31,8 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
     - `-p <aws-profile>`    &ensp;override the default profile aws uses
     - `-r <aws-region>`     &ensp;override the default region aws uses
     - `-s <stack-name>`     &ensp;name of the stack that containing lambdas to debug
-    - `-t <template-path>`  &ensp;path to the repo's template. Default: ./template.yml
-    - `-u <code-uri>`       &ensp;to enforce a different base path to all lambda handlers. 
+    - `-t <template-path>`  &ensp;path to the local Cloudformation template. Default: ./template.yml
+    - `-u <code-uri>`       &ensp;enforce a different base path to all lambda handlers. 
                                 <br>&ensp;&ensp;Default: CodeUri defined in template.yml
                                   <br>&ensp;&ensp; example: '-u ./build/'.
     - `-m <manual-mapping>` &ensp;override the template's mapping relative path to a file manually mapping lambdas to their local handlers. 
@@ -61,14 +60,14 @@ A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by 
 
 ## CLI EXAMPLES
 * Initial deployment: 
-    `nld deploy  -p aws-dev-account -r eu-central-1`
-* Stack debugging:    
-    `nld connect -p aws-dev-account -r eu-central-1 -s my-test-stack`
+    <br>&ensp;`nld deploy  -p dev-account -r eu-central-1`
+* Stack debugging:
+    <br>&ensp;`nld connect -p dev-account -r eu-central-1 -s my-test-stack`
 * Detach NLD from the stack:
-    `nld detach  -p aws-dev-account -r eu-central-1`
+    <br>&ensp;`nld detach  -p dev-account -r eu-central-1`
 * Stack debugging with local handler path prefix override:
-    `nld connect -p aws-dev-account -r eu-central-1 -s my-test-stack -u ./build`
+    <br>&ensp;`nld connect -p dev-account -r eu-central-1 -s my-test-stack -u ./build`
 * Using a project config file:
-    create:  `nld generate-config-file -p nld.js`
-    connect: `nld deploy -f nld.js`
+    <br>&ensp;create:  `nld generate-config-file -p nld.config.js`
+    <br>&ensp;connect: `nld deploy -f nld.config.js`
 
