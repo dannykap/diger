@@ -9,15 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/dannykap/nld.git"
+    "url": "https://github.com/dannykap/nld.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },  
   "bin": {
     "nld": "./bin/nld.sh",
     "nld-js": "./bin/nld-js.js",
     "nld-ts": "./bin/nld-ts.js"    
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.1304.0",
     "commander": "^10.0.0",
