@@ -10,18 +10,18 @@ const deploy = async (flags) => {
   //create layer resources
   const packageDir = path.resolve(__dirname, '../');
   try {
-    await fs.copy(`${packageDir}/shared`, `${packageDir}/NLDLayer/payload/shared`);
+    await fs.copy(`${packageDir}/shared`, `${packageDir}/digerLayer/payload/shared`);
   } catch (error) {
     logger.error(
-      `failed copying ${packageDir}/shared to ${packageDir}/NLDLayer/payload/shared with error: \n${error}`
+      `failed copying ${packageDir}/shared to ${packageDir}/digerLayer/payload/shared with error: \n${error}`
     );
   }
 
   process.env.AWS_PROFILE = flags.awsProfile || process.env.AWS_PROFILE;
   process.env.AWS_REGION = flags.awsRegion || process.env.AWS_REGION;
 
-  const command = `sam deploy -t ${packageDir}/NLDLayer/template.yml --stack-name ${flags.NLDStackName} --region ${process.env.AWS_REGION} --profile ${process.env.AWS_PROFILE} --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM --resolve-s3`;
-  logger.info(`Deploying ${flags.NLDStackName} stack with: \n\t ${command}`);
+  const command = `sam deploy -t ${packageDir}/digerLayer/template.yml --stack-name ${flags.digerStackName} --region ${process.env.AWS_REGION} --profile ${process.env.AWS_PROFILE} --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM --resolve-s3`;
+  logger.info(`Deploying ${flags.digerStackName} stack with: \n\t ${command}`);
   const deployProcess = spawn(command, { shell: true });
 
   deployProcess.stdout.on('data', function (data) {
@@ -29,7 +29,7 @@ const deploy = async (flags) => {
   });
 
   deployProcess.stderr.on('data', function (data) {
-    // logger.error(`FAILED deploying the NLD stack, error: \n ${data.toString()}\n\n handle the error and/or erase the stack to redeploy`); 
+    // logger.error(`FAILED deploying the diger stack, error: \n ${data.toString()}\n\n handle the error and/or erase the stack to redeploy`); 
     logger.info(data.toString());
   });
 

@@ -49,7 +49,7 @@ exports.handler = async function (event, context, callback) {
   }
 
 
-  //trigger original lambda handler if NLD client is down
+  //trigger original lambda handler if DIGER client is down
   const goferClientAlive = await readClientKeepAlive();
   if (!goferClientAlive){
     const {pathToHandler, handlerName} = parseHandlerPath(process.env.ORIGINAL_HANDLER);
@@ -58,7 +58,7 @@ exports.handler = async function (event, context, callback) {
 
   // write incoming event to queue
   console.log(
-    `NLD incoming event
+    `DIGER incoming event
     \n${process.env.LAMBDA_MIRROR_NAME}
     \n${process.env.DYNAMO_MIRROR_TABLE_REF}
     \n${event?.Records?.[0]?.eventSource || null }`
@@ -70,7 +70,7 @@ exports.handler = async function (event, context, callback) {
       event,
     }),
   });
-  console.log('NLD forwarding execution to local client');
+  console.log('DIGER forwarding execution to local client');
   if (!invokeId) {
     console.log('failed to invoke lambda');
     return 0;

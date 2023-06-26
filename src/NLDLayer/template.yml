@@ -38,7 +38,7 @@ Resources:
         AttributeName: ttl
         Enabled: 'true'
 
-  NLDLayer:
+  digerLayer:
     Type: AWS::Serverless::LayerVersion
     Metadata:
       BuildMethod: makefile

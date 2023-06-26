@@ -1,7 +1,7 @@
 {
-  "name": "nld",
+  "name": "diger",
   "version": "0.0.1",
-  "description": "nodejs aws lambda debugger",
+  "description": "nodejs AWS lambda debugger",
   "scripts": {
     "test": "AWS_EMF_ENVIRONMENT=Local ALLOW_CONFIG_MUTATIONS=true NODE_ENV=test jest",
     "release:publish": "npm publish",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dannykap/nld.git"
+    "url": "https://github.com/dannykap/diger.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },  
   "bin": {
-    "nld": "./bin/nld.sh",
-    "nld-js": "./bin/nld-js.js",
-    "nld-ts": "./bin/nld-ts.js"    
+    "diger": "./bin/diger.sh",
+    "diger-js": "./bin/diger-js.js",
+    "diger-ts": "./bin/diger-ts.js"    
   },
   "author": "",
   "license": "MIT",

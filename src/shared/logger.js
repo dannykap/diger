@@ -17,7 +17,7 @@ function log(prefix, color, message, ...objects) {
     logMessage = logMessage.replace(placeholder, `\n${JSON.stringify(object, null, 2)}\n`);
   }
 
-  console.log(`${color}${styles.bold}NLD [${prefix}]:${styles.reset} ${logMessage}`);
+  console.log(`${color}${styles.bold}Diger [${prefix}]:${styles.reset} ${logMessage}`);
 }
 
 /**
@@ -36,7 +36,7 @@ const logger = {
   warn: (message, ...objects) => log('WARNING', styles.yellow, message, ...objects),
   info: (message, ...objects) => log('INFO', styles.blue, message, ...objects),
   debug: (message, ...objects) =>
-    JSON.parse(process.env.NLD_VERBOSE) ? log('DEBUG', styles.green, message, ...objects) : '',
+    JSON.parse(process.env.DIGER_VERBOSE) ? log('DEBUG', styles.green, message, ...objects) : '',
 };
 
 module.exports = logger;

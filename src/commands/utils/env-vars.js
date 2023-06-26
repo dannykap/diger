@@ -42,7 +42,7 @@ const loadConfigParams = (configFile = null, flags) => {
   process.env.STACK_NAME  = ( configFile?.stackName || flags.stackName ) || Object.keys(configFile.lambdaMapping)[0];
   process.env.AWS_PROFILE = configFile?.profile || flags.awsProfile || process.env.AWS_PROFILE;
   process.env.TEMPLATE_PATH = configFile?.templatePath || flags.templatePath;
-  process.env.NLD_VERBOSE = flags.verbose;
+  process.env.DIGER_VERBOSE = flags.verbose;
 }
 
 const loadLambdaMapping = (configFile = null) => {

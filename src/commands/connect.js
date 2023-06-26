@@ -108,14 +108,14 @@ const startMessageListener = async (flags) => {
 
   const stackName = configFile?.stackName || flags.stackName;
 
-  // get NLD stack resources
-  logger.info('CHECKING NLD RESOURCES');
-  const NLDResources = await listStackResources(flags.NLDStackName);
+  // get diger stack resources
+  logger.info('CHECKING DIGER RESOURCES');
+  const NLDResources = await listStackResources(flags.digerStackName);
 
-  // store NLD refs
+  // store diger refs
   await saveNLDResourcesRefs(NLDResources);
 
-  // bind NLD to the stacks's lambdas
+  // bind diger to the stacks's lambdas
   logger.info('BINDING TO LAMBDAS');
   await bindToLambdas(stackName , lambdaMapping); //! check if no stack name
 

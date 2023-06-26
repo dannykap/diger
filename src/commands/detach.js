@@ -29,13 +29,13 @@ const detach = async (flags) => {
   process.env.AWS_SECRET_ACCESS_KEY = credentials.secretAccessKey;
   process.env.AWS_ACCESS_KEY_ID = credentials.accessKeyId;
 
-  //map NLD resources
-  const NLDResources = await listStackResources(flags.NLDStackName);
-  await saveNLDResourcesRefs(NLDResources);
+  //map diger resources
+  const NLDResources = await listStackResources(flags.digerStackName);
+  await saveNLDResourcesRefs(digerResources);
 
   const stackName = configFile?.stackName || flags.stackName;
 
-  // detach NLD to the service's lambdas
+  // detach diger to the service's lambdas
   await detachFromLambdas(stackName, lambdaMapping);
 };
 

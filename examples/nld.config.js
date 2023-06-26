@@ -1,6 +1,6 @@
 /* 
 README
-  the following are optional overrides to be used every time NLD connects.
+  the following are optional overrides to be used every time diger connects.
   blank values will be ignored.
   erase the lambda examples before using this file
 */

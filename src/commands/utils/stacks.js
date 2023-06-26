@@ -137,19 +137,19 @@ const saveNLDResourcesRefs = async (NLDResources) => {
   for (const { LogicalResourceId, PhysicalResourceId } of NLDResources) {
     if (LogicalResourceId === 'MirrorCachingTable') {
       process.env.DYNAMO_MIRROR_TABLE_REF = PhysicalResourceId;
-      logger.debug(`NLD dynamo table name: ${PhysicalResourceId}`);
-    } else if (LogicalResourceId.includes('NLDLayer')) {
-      process.env.NLD_LAYER_REF = PhysicalResourceId;
+      logger.debug(`diger dynamo table name: ${PhysicalResourceId}`);
+    } else if (LogicalResourceId.includes('digerLayer')) {
+      process.env.DIGER_LAYER_REF = PhysicalResourceId;
     } else if (LogicalResourceId === 'LambdaDynamoPolicy') {
-      process.env.NLD_DYNAMO_POLICY_REF = PhysicalResourceId;
+      process.env.DIGER_LAYER_REF_DYNAMO_POLICY_REF = PhysicalResourceId;
     }
   }
-  if (!process.env.DYNAMO_MIRROR_TABLE_REF || !process.env.NLD_LAYER_REF || !process.env.NLD_DYNAMO_POLICY_REF) {
+  if (!process.env.DYNAMO_MIRROR_TABLE_REF || !process.env.DIGER_LAYER_REF || !process.env.DIGER_DYNAMO_POLICY_REF) {
     const missingResources = [];
     missingResources.push(`dynamo: ${process.env.DYNAMO_MIRROR_TABLE_REF}`);
-    missingResources.push(`NLD layer: ${process.env.NLD_LAYER_REF}`);
-    missingResources.push(`dynamo policy: ${process.env.NLD_DYNAMO_POLICY_REF}`);
-    const errorMsg = `Missing NLD stack resources!\nPlease verify NLD was deployed to the this account\t${missingResources.join('\n\t')}\n\tExiting...`;
+    missingResources.push(`DIGER layer: ${process.env.DIGER_LAYER_REF}`);
+    missingResources.push(`dynamo policy: ${process.env.DIGER_DYNAMO_POLICY_REF}`);
+    const errorMsg = `Missing DIGER stack resources!\nPlease verify DIGER was deployed to the this account\t${missingResources.join('\n\t')}\n\tExiting...`;
     logger.error(errorMsg);
     throw new Error(errorMsg);
   }
@@ -162,11 +162,11 @@ const saveNLDResourcesRefs = async (NLDResources) => {
  * @returns {GoferLayerCheckResult} `{ goferLayerExists, latestGoferLayerExists }` - An object containing the results of the Gofer layer existence check.
  */
 const checkGoferExists = (lambdaResource) => {
-  const [goferLayerExists, latestGoferLayerExists] = ['NLDLayer', process.env.NLD_LAYER_REF].map((layerName) =>
+  const [goferLayerExists, latestGoferLayerExists] = ['DIGERLayer', process.env.DIGER_LAYER_REF].map((layerName) =>
     lambdaResource.config?.Layers?.some((layer) => layer.Arn.includes(layerName))
   );
-  logger.debug(`${lambdaResource.name} - NLD layer exists: ${Boolean(goferLayerExists)}`);
-  logger.debug(`${lambdaResource.name} - latest version of NLD layer exists: ${Boolean(latestGoferLayerExists)}`);
+  logger.debug(`${lambdaResource.name} - DIGER layer exists: ${Boolean(goferLayerExists)}`);
+  logger.debug(`${lambdaResource.name} - latest version of DIGER layer exists: ${Boolean(latestGoferLayerExists)}`);
   return { goferLayerExists, latestGoferLayerExists };
 };
 
@@ -237,7 +237,7 @@ const bindToLambdas = async (stackName, manualMapping) => {
     }
 
     const policyParams = {
-      PolicyArn: process.env.NLD_DYNAMO_POLICY_REF,
+      PolicyArn: process.env.DIGER_DYNAMO_POLICY_REF,
       RoleName: roleName,
     };
 
@@ -262,10 +262,10 @@ const bindToLambdas = async (stackName, manualMapping) => {
 
     const getLayers = (lambdaResource) => {
       const { config: lambdaConfig, name: lambdaName } = lambdaResource;
-      const NLD_LAYER_REF = process.env.NLD_LAYER_REF;
+      const DIGER_LAYER_REF = process.env.DIGER_LAYER_REF;
 
       if (!lambdaConfig.hasOwnProperty(`Layers`)) {
-        return [NLD_LAYER_REF];
+        return [DIGER_LAYER_REF];
       }
       const { Layers: lambdaLayers } = lambdaConfig;
 
@@ -273,13 +273,13 @@ const bindToLambdas = async (stackName, manualMapping) => {
         return lambdaLayers.map((layer) => layer.Arn); // no need to update layers
       }
       if (goferLayerExists) {
-        return [...lambdaLayers.map((layer) => (layer.Arn.includes('NLDLayer') ? NLD_LAYER_REF : layer.Arn))];
+        return [...lambdaLayers.map((layer) => (layer.Arn.includes('digerLayer') ? DIGER_LAYER_REF : layer.Arn))];
       }
       if (lambdaLayers.length === 5) {
         logger.error(`failed binding Gofer to ${lambdaName}: lambda has max number of allowed layers!`);
         return null; // can't add layer
       }
-      return [...lambdaLayers.map((layer) => layer.Arn), NLD_LAYER_REF];
+      return [...lambdaLayers.map((layer) => layer.Arn), DIGER_LAYER_REF];
     };
 
     const updatedLayers = getLayers(lambdaResource);
@@ -406,7 +406,7 @@ const detachFromLambdas = async (stackName, manualMapping) => {
       return;
     }
 
-    const Layers = (config.Layers || []).filter((layer) => !layer.Arn.includes('NLDLayer')).map((layer) => layer.Arn);
+    const Layers = (config.Layers || []).filter((layer) => !layer.Arn.includes('digerLayer')).map((layer) => layer.Arn);
 
     const params = {
       FunctionName: config.FunctionArn,
@@ -432,16 +432,16 @@ const detachFromLambdas = async (stackName, manualMapping) => {
     }
 
     const params = {
-      PolicyArn: process.env.NLD_DYNAMO_POLICY_REF,
+      PolicyArn: process.env.DIGER_DYNAMO_POLICY_REF,
       RoleName: roleName,
     };
 
     try {
       await iam.detachRolePolicy(params).promise();
-      logger.info(`removed NLD from ${lambdaResource.name}`);
+      logger.info(`removed DIGER from ${lambdaResource.name}`);
     } catch (error) {
       if (error.code.includes('NoSuchEntity')) {
-        logger.info(`removed NLD from ${lambdaResource.name}`);
+        logger.info(`removed DIGER from ${lambdaResource.name}`);
       } else {
         logger.error(`failed to update role ${roleName} of ${lambdaResource.name}`);
       }
@@ -455,7 +455,7 @@ const detachFromLambdas = async (stackName, manualMapping) => {
     })
   );
 
-  logger.info('NLD DETACHED');
+  logger.info('DIGER DETACHED');
 };
 
 module.exports = {

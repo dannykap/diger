@@ -6,8 +6,8 @@ const generate = async (flags) => {
 
   const packageDir = path.resolve(__dirname, '../../');
   try {
-    await fs.copy(`${packageDir}/examples/nld.config.js`, flags.path);
-    logger.info(`CREATED NLD CONFIG FILE at  ${flags.path}`);
+    await fs.copy(`${packageDir}/examples/diger.config.js`, flags.path);
+    logger.info(`CREATED DIGER CONFIG FILE at  ${flags.path}`);
   } catch (error) {
     logger.error(
       `failed copying ${packageDir}/shared to ${flags.path} with error: \n${error}`
