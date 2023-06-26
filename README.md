@@ -1,6 +1,6 @@
 # NodeJS Lambda Debugger
 ## WHAT IS IT 
-A generic JS/Typescript dev tool that enables debugging deployed AWS lambdas by delegating their execution to a local machine. 
+A generic JS/Typescript dev tool that enables digging into and debugging deployed AWS lambdas by delegating their execution to a local machine. 
 
 ## HOW DOES IT WORK 
 * __Deployment phase__
