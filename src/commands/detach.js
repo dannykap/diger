@@ -31,7 +31,7 @@ const detach = async (flags) => {
 
   //map diger resources
   const NLDResources = await listStackResources(flags.digerStackName);
-  await saveNLDResourcesRefs(digerResources);
+  await saveNLDResourcesRefs(NLDResources);
 
   const stackName = configFile?.stackName || flags.stackName;
 

@@ -141,7 +141,7 @@ const saveNLDResourcesRefs = async (NLDResources) => {
     } else if (LogicalResourceId.includes('digerLayer')) {
       process.env.DIGER_LAYER_REF = PhysicalResourceId;
     } else if (LogicalResourceId === 'LambdaDynamoPolicy') {
-      process.env.DIGER_LAYER_REF_DYNAMO_POLICY_REF = PhysicalResourceId;
+      process.env.DIGER_DYNAMO_POLICY_REF = PhysicalResourceId;
     }
   }
   if (!process.env.DYNAMO_MIRROR_TABLE_REF || !process.env.DIGER_LAYER_REF || !process.env.DIGER_DYNAMO_POLICY_REF) {
