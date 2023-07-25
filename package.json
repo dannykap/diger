@@ -1,6 +1,6 @@
 {
   "name": "diger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "nodejs AWS lambda debugger",
   "scripts": {
     "test": "AWS_EMF_ENVIRONMENT=Local ALLOW_CONFIG_MUTATIONS=true NODE_ENV=test jest",
